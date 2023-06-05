@@ -1,0 +1,238 @@
+#app-bar {
+  background-image: linear-gradient(to right, #eaf2f3, #dbd47cec);
+}
+
+#footer {
+  background-image: linear-gradient(to left, #eaf2f3, #dbd47cec);
+}
+
+.custom-button{
+  background-image: linear-gradient(to right, #eaf2f3, #dbd47cec);
+}
+
+
+#inspire {
+  background-image: url('images/DSC_2609.jpg') ;
+  background-repeat: repeat-y;
+
+}
+
+#container-window  {
+  // background-image: linear-gradient(to right, #eaf2f3, #1d2021ec);
+  // background-image: linear-gradient(to right, #eaf2f3, #131720);
+  // background-image: linear-gradient(to right, rgba(234, 242, 243, 0.2), rgba(19, 23, 32, 0.2));
+  background-color: transparent;
+}
+
+.custom-bg {
+  background-image: linear-gradient(to right, rgba(234, 242, 243, 0.8), rgba(19, 23, 32, 0.8));
+}
+
+// #main {
+//   background-color: #DFE5EB;
+//   background-color: #131720;
+//   // color: white;
+// }
+
+.v-card, .v-list {
+  // background-color: #DFE5EB;
+  background-color: #DFE5EB;
+}
+
+// .bg-transparent {
+//   background-color: transparent;
+// }
+
+// .container_login {
+//   position: relative;
+//   width: 50%;
+//   transform: scale(1);
+//   font-weight: lighter;
+//   box-shadow: 0 5px 35px 0px rgba(0,0,0,.1);
+//   background-image: linear-gradient(to right, rgba(234, 242, 243, 0.8), rgba(19, 23, 32, 0.8));
+//   transition: box-shadow 2s, transform 0.5s, background-position 1.5s;
+
+//     &:hover {
+//     box-shadow: 0 5px 35px 0px rgba(0,0,0,.1);
+//     background-position: right;
+//     transform: scale(1.05);
+//   }
+// }
+
+// .container_login {
+//   position: relative;
+//   width: 50%;
+//   transform: scale(1);
+//   font-weight: lighter;
+//   box-shadow: 0 5px 35px 0px rgba(0, 0, 0, .1);
+//   background-image: linear-gradient(to right, rgba(234, 242, 243, 0.8), rgba(19, 23, 32, 0.8));
+// }
+
+// .container_login:hover {
+//   animation: changeBackground 1.5s;
+// }
+
+// @keyframes changeBackground {
+//   from {
+//     background-image: linear-gradient(to right, rgba(234, 242, 243, 0.8), rgba(19, 23, 32, 0.8));
+//   }
+//   to {
+//     background-image: linear-gradient(to left, rgba(234, 242, 243, 0.8), rgba(19, 23, 32, 0.8));
+//   }
+// }
+
+
+.container_login{
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.329) ,#ffa6004d,#ffc80049,   rgba(167, 211, 236, 0.562),#ffa6004d, #ffc80049, #ff440057, rgba(0, 0, 0, 0.329) );
+	background-size: 400% 400%;
+  animation: changeBackground 15s ease-in-out infinite;
+  transition: transform 1s;
+  box-shadow: 5px 5px 5px rgb(163, 178, 180);
+  border-radius: 5px;
+
+  &:hover{
+    transform: scale(1.05);
+  }
+
+}
+
+@keyframes changeBackground {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 50% 50%;
+	}
+	100% {
+		background-position:   100% 50%;
+	}
+}
+
+
+
+
+.draw {
+
+    background-color: #131720 !important;
+    color: white !important;
+  
+    &__pop{
+      transform: scale(0.9);
+     
+    }
+  
+  
+  }
+  
+  
+.loading {
+    display: grid;
+    place-content: center;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+  
+.menu{
+    margin-left: 40px;
+  }
+
+  #main {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .img-box {
+    max-height: 250px;
+    transition: transform 0.5s ease;
+
+    &:hover{
+      transform: scale(1.10);
+    }
+  }
+
+  #coverPicture{
+    width: 385px; 
+    height: 250px;
+    object-fit:cover;
+  }
+
+ 
+
+
+  @media screen and (min-width: 915px) {
+
+    
+    #main {
+      // width: 668px;
+      width: 75%;
+    }
+
+  }
+  
+
+  @media screen and (max-width: 376px) {
+    .img-box {
+      height: 180px;
+    }
+
+
+    #coverPicture{
+      height: 200px;
+  }
+}
+    
+
+@media screen and (min-width: 819px) {
+    .img-box {
+      height: 212px;
+    }
+
+    #coverPicture{
+      height: 230px;
+  }
+}
+
+
+    
+
+@media screen and (min-width: 960px) {
+    .img-box {
+      height: 240px;
+    }
+
+    #coverPicture{
+      height: 260px;
+  }
+}
+
+
+    @font-face {
+      font-family: 'caca';
+      src: url('fonts/RubikMoonrocks-Regular.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'paint';
+      src: url('fonts/FingerPaint-Regular.ttf') format('truetype');
+    }
+
+
+    // AlbumCardVue.vue - largeur de la notification de fin de liste
+  @media screen and (max-width: 376px) {
+      #banner {
+        width: 100%;
+      }
+  }
+      
+  
+  @media screen and (min-width: 720px) {
+      #banner {
+        width: 50%;
+      }
+  
+  }
