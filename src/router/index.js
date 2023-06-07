@@ -73,7 +73,9 @@ const routes = [
                 endDate: route.query.endDate || null,
                 pseudo: route.query.pseudo || null,
               }) },
-            { path: 'users/:id', name: 'users-detail', component: UserDetailView },
+            { path: 'users/:id', name: 'users-detail', component: UserDetailView, props: (route) => ({
+                userPseudo: route.query.userPseudo || null
+            }) },
             { path: 'album/create/:id(\\d+)?', name: 'create-album', component: AlbumFormVue },
             { path: 'album/read/:id(\\d+)', name: 'read-admin-album', component: AlbumListeVue },
             { path: 'album/update/:id(\\d+)', name: 'update-album', component: AlbumUpdateVue },

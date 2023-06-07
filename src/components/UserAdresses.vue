@@ -7,7 +7,7 @@
       >
         <template v-slot:activator="{ props }">
           <v-btn
-            color="#DFE5EB"
+          class="custom-button"
             v-bind="props"
           >Mon adresse de facturation</v-btn>
         </template>

@@ -4,7 +4,7 @@
         <h3 class="mb-5 text-center">
           Mettez à jour votre adresse de facturation :
         </h3>
-        {{  lastAddress }}
+        <!-- {{  lastAddress }} -->
             <v-text-field v-model="name" :rules="basicRules" counter="20" label="Intitulé de l'adresse" :placeholder="lastAddress.name" required></v-text-field>
             <v-text-field v-model="firstname" :rules="basicRules" counter="20" label="Votre nom" :placeholder="lastAddress.firstname" required></v-text-field>
             <v-text-field v-model="lastname" :rules="basicRules" counter="20" label="Votre Prénom" :placeholder="lastAddress.lastname" required></v-text-field>
@@ -50,7 +50,7 @@ const route = useRoute();
 const lastAddress = ref({});
        
 const valid =  ref(true);
-const name= ref("");
+const name = ref("");
 const firstname = ref("");
 const pseudo = ref("");
 const lastname = ref('');

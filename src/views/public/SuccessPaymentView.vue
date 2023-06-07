@@ -18,14 +18,16 @@ onMounted( () => {
     // orderService.orderValidation(id)
     // .then( (response => console.log(response)))
     // .catch( (error) => console.log(error));
+    
     redirect();
     
 });
 
 const redirect = () => {
+    $cookies.remove('cartId');
     setTimeout(() => {
         router.push('/');
-    }, 1500)
+    }, 4000)
 }
 
 

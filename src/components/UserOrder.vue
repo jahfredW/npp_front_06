@@ -9,7 +9,7 @@
       >
         <template v-slot:activator="{ props }">
           <v-btn
-            color="#DFE5EB"
+            class="custom-button mx-13"
             v-bind="props"
           >Mes commandes</v-btn>
         </template>
@@ -237,8 +237,8 @@ const statusActivating = (statusOrder) => {
 }
 
 const items = [
-    { id : 1, title : "Télécharger les photos", icon :"mdi-pen", color : "success" }, 
-    { id : 2, title : "Editer une facture", icon :"mdi-folder-plus-outline", color : "yellow" }, 
+    { id : 1, title : "Télécharger", icon :"mdi-pen", color : "success" }, 
+    { id : 2, title : "Facture", icon :"mdi-folder-plus-outline", color : "yellow" }, 
 ]
 
 const publicItem = { title : "Consulter", icon : "mdi-eye", color : "success" };

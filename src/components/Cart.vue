@@ -89,7 +89,9 @@ import { useCartStore } from './../stores/cartStore';
 import { ref, onMounted, onBeforeUpdate } from 'vue';
 import { orderService } from '@/../_services/order.service';
 import { pictureService } from '@/../_services/picture.service';
+import { cartService } from '@/../_services/cart.service';
 import { discountService } from '@/../_services/discount.service';
+import VueCookies from 'vue-cookies'
 import { useRouter } from 'vue-router';
 
 // au montage du composant, récupération des bons de réduction
@@ -193,7 +195,11 @@ const getPictureUrl = (id) => {
 // suppression du panier 
 const trashItemFromCart = (id) =>{
     if(confirm('Supprimer cette photo du panier ?')){
+        
         cartStore.trashItemFromCart(id);
+        cartService.deleteCartLine(id)
+        .then( (res) => { console.log(res)})
+        .catch( (err) => { console.log(err)});
         snackText.value = "Photo Supprimée avec succès!"
         snackbar.value = true;
     }
@@ -202,9 +208,28 @@ const trashItemFromCart = (id) =>{
 //vider le panier 
 const trashCart = () => {
     if(confirm('vider le panier ?')){
-        cartStore.trashCart();
+        // suppression du panier frontEnd
+        if(cartStore.getCart.length >  0){
+            cartStore.trashCart();
+            // suppression du panier backEnd
+        
+        cartService.deleteToCart()
+        .then( (res) => {
+            console.log(res);
+            // $cookies.remove('cartId');
+        })
+        .catch( (err) => {
+            console.log(err);
+        });
         snackText.value = "Panier vidé avec succès!"
         snackbar.value = true;
+        } else {
+            alert('Votre panier est déja vide!');
+        }
+        
+
+        
+        
     }
 }
 // vérification du params ' name de l'url'
@@ -220,6 +245,11 @@ const makeOrder =  () => {
     // orderService.makeOrder()
     // .then( res => console.log(res))
     // .catch( err => console.log(err))
-    router.push('/order');
+    if(cartStore.getCart.length < 1) {
+        alert('Votre panier est vide');
+    } else {
+        router.push('/order');
+    }
+    
 }
 </script>

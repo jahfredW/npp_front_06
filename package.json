@@ -28,6 +28,7 @@
     "roboto-fontface": "*",
     "v3-infinite-loading": "^1.2.2",
     "vue": "^3.2.47",
+    "vue-cookies": "^1.8.3",
     "vue-infinite-scroll": "^2.0.2",
     "vue-meta": "^3.0.0-alpha.10",
     "vue-router": "^4.1.6",

@@ -1,6 +1,7 @@
 <!-- child : Card -->
 <!-- url : album/read/id  -->
 
+
 <script setup>
 
   import { ref, onMounted, onBeforeUpdate } from "vue";
@@ -95,7 +96,7 @@
 <template>
     <v-container fluid >
         <v-row>
-            <v-col cols="12" sm="6" md="4" lg="3"  v-for="picture in pictures">
+            <v-col cols="12" sm="6" md="4" lg="4"  v-for="picture in pictures">
                 <Card :pict="picture"/>
             </v-col>
         </v-row>

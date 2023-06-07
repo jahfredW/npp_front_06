@@ -65,6 +65,7 @@ import { ref, onMounted, onBeforeUpdate} from 'vue';
 import { pictureService } from '@/../_services/picture.service';
 import { productService } from '@/../_services/product.service';
 import { discountService } from '@/../_services/discount.service';
+import { cartService } from '@/../_services/cart.service';
 import { useTokenStore } from '@/stores/tokenStore';
 import { useCartStore } from '@/stores/cartStore';
 import { useRouter } from 'vue-router';
@@ -150,7 +151,11 @@ const addToCart = async(id) => {
             await getPrice(idProduct.value);
             await getUrl(id);
             await getName(id);
+            let res = await cartService.addToCart(id);
+            let cookies = document.cookie;
+            console.log('cookies,', cookies);
             cartStore.addToCartLine(id, 1, picturePrice.value, pictureUrl.value, idProduct.value, pictureName.value);
+            console.log(res);
             let cart = localStorage.getItem('cart');
             snackbar.value = true;
         } catch(error) {

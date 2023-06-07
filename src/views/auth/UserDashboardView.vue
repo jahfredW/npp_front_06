@@ -1,11 +1,13 @@
 <!-- dashboard user : commandes, adresses , info persos -->
 <template>
     <v-container class="container">
-        <v-card >
-            <div class="d-flex flex-no-wrap justify-space-between">
-                <div>
-                    <v-card-title class="text-h5">Mon espace perso</v-card-title>
-                    <v-card-subtitle>Foster the People</v-card-subtitle>
+        <v-card elevation="15" >
+            <v-card-title class="text-h5 text-center">Mon espace perso</v-card-title>
+            <v-card-subtitle class="text-center">Gérez vos commandes et vos infos</v-card-subtitle>
+            <v-divider></v-divider>
+            <v-row>
+                <v-col cols="12" class="d-flex flex-row justify-content-center">
+                    <div>
                     <div class="d-flex flex-column align-items-between">
                         <div class="ma-3">   
                             <UserOrder :info="userDetail" />
@@ -18,11 +20,14 @@
                         </div>             
                     </div>
                 </div>
-                <v-avatar class="ma-3" size="125" rounded="0"
-              >
-                <v-img src="/public/images/logo.png"></v-img>
-            </v-avatar>
-            </div>
+                </v-col>
+                <v-col cols="12" class="text-center">
+                    <v-avatar class="ma-3" size="125" rounded="0">
+                        <v-img src="/public/images/logo.png"></v-img>
+                    </v-avatar>
+                </v-col>
+            </v-row>
+            
             
             
             

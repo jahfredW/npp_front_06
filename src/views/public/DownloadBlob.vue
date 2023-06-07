@@ -1,10 +1,24 @@
 <!-- Interface de téléchargement des images achetées apr le client  -->
 <template>
-  <div v-if="displayPicture" class="h3 text-center mb-7">Attention vos liens de téléchargement sont valables un mois après votre date d'achat</div>
-    <div class="d-flex flex-row justify-content-around my-10 " v-for="picture in pictureUrl">
-      <img :src="picture.url" style="width: 300px;"/>
-      <v-btn @click="download('mon image', picture.id)">Télécharger le fichier</v-btn>
-    </div>
+  <v-container class="container">
+    <div v-if="displayPicture" class="h3 text-center mb-15">Attention vos liens de téléchargement sont valables un mois après votre date d'achat</div>
+  <v-row >
+    <v-col cols="12" md="4" v-for="picture in pictureUrl">
+      <v-card  max-width="500" elevation="15">
+        <v-img :src="picture.url"/>
+        <v-card-actions >
+          <v-spacer></v-spacer>
+          <v-btn size="large"  icon="mdi-download" @click="download('mon image', picture.id)"></v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-col>
+  </v-row>
+  </v-container>
+
+      
+      
+
     
 </template>
   

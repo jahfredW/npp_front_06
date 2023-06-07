@@ -16,6 +16,7 @@
 
 </template>
 
+
 <script setup>
 
 import { ref } from 'vue';
@@ -25,7 +26,7 @@ import { accountService } from '@/../_services/account.service';
 import { useTokenStore } from '@/stores/tokenStore';
 import router from '../../router';
 
-const pseudo =  ref('');
+const pseudo =  ref("");
 const valid =  ref(true);
 const pseudoUpdated = ref(false);
 const successText = ref("");
@@ -33,6 +34,7 @@ const successText = ref("");
 const route = useRoute();
 
 const userId = route.params.id;
+pseudo.value = route.query.userPseudo;
 
 const tokenStore = useTokenStore();
 

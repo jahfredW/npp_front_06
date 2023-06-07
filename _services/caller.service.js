@@ -16,10 +16,12 @@ const Axios = axios.create({
     baseURL : 'https://localhost:8000',
     // baseURL : 'https://70bd-2a01-e0a-849-4580-30a9-f4a2-18c9-6c6e.ngrok-free.app',
     // headers: {'X-Custom-Header': 'foobar'},
-    // withCredentials: false,
+    withCredentials: true,
 })
 
 axios.defaults.headers["content-type"] = "application/json";
+
+axios.defaults.withCredentials = true
 
 
 axios.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem("token");

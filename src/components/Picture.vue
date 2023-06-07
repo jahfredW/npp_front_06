@@ -23,10 +23,10 @@
             <v-col v-if="tokenStore.getStatusApp != 'godMode'" cols="12" sm="12" md="2">
                 <v-row>
                     <v-col cols="6" md="12">
-                        <v-btn size="small" prepend-icon="mdi-cart" color="#dbd47cec" @click="addToCart(id, pictureType)">Ajouter au panier</v-btn>
+                        <v-btn size="small" prepend-icon="mdi-cart" color="#dbd47cec" @click="addToCart(id, pictureType)">Ajouter</v-btn>
                     </v-col>
                     <v-col cols="6" md="12">
-                        <v-btn size="small" prepend-icon="mdi-cart" color="#dbd47cec">Acheter un tirage</v-btn>
+                        <v-btn size="small" prepend-icon="mdi-cart" color="#dbd47cec">Acheter</v-btn>
                     </v-col>
                 </v-row>
             </v-col>
@@ -74,7 +74,8 @@ import { pictureService } from '@/../_services/picture.service';
 import { productService } from '@/../_services/product.service';
 import { useRoute } from "vue-router";
 import { ref, onMounted, onBeforeMount } from 'vue';
-import  { useCartStore }  from './../stores/cartStore'
+import  { useCartStore }  from './../stores/cartStore';
+import { cartService } from '@/../_services/cart.service';
 import { useTokenStore } from '../stores/tokenStore';
 
 // init 
@@ -111,11 +112,13 @@ onMounted( async() => {
 /**
  * Ajout de la photographie au panier.  
  * @param {int} id : id de la photographie
+ * @param {int} idProduct : id du produit
  */
 const addToCart = async(id, idProduct) => {
 
     
     await getPrice(idProduct);
+    let res = await cartService.addToCart(id);
     cartStore.addToCartLine(id, 1, picturePrice.value, url.value, pictureType.value, pictureName.value);
     let cart = localStorage.getItem('cart');
     snackbar.value = true;
