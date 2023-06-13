@@ -2,9 +2,9 @@
   <metainfo>
     <template v-slot:title="{ content }">{{ content ? `${content} | NPP Photographies` : `NPP Photographies` }}</template>
   </metainfo>
-  <v-app id="inspire" class="custom-font">
+  <v-app id="inspire">
     
-    <v-navigation-drawer class="custom-font" v-if="tokenStore.getStatusApp === 'godMode' "  v-model="drawer" style="background-color: #131720;" >
+    <v-navigation-drawer class="custom-titles" v-if="tokenStore.getStatusApp === 'godMode' "  v-model="drawer" style="background-color: #131720;" >
       <v-list>
         <v-list-item v-for="(item, i) in headItems" :key="i" :value="item" class="draw" link>
           <v-row class="d-flex flex-row">
@@ -84,7 +84,7 @@
     </v-navigation-drawer>
 
     <!-- *************************Public layout********************************************************************* -->
-    <v-navigation-drawer class="custom-font" v-else  v-model="drawer" style="background-color: #131720;" >
+    <v-navigation-drawer class="custom-titles" v-else  v-model="drawer" style="background-color: #131720;" >
       <v-list>
         <v-list-item v-for="(item, i) in publicHeadItems" :key="i" :value="item" class="draw" :to="item.to" link>
           <v-row class="d-flex flex-row">
@@ -158,12 +158,12 @@
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title >Menu</v-toolbar-title>
     </v-app-bar>
-    <v-main id="main">
-      <div class="my-5 text-center" v-if="showLogo" >
-          <img  src="logoCanva3.png" style="width: 50%;"  />
+    <v-main id="main" class="custom-lato">
+      <div class="my-5 text-center" v-if="isDesktop" >
+          <img  src="@/assets/images/logoCanva3.png" style="width: 50%;"  />
       </div>
-      <div class="my-5 text-center" v-else >
-          <img  src="images/logo.png" style="width: 25%;"  />
+      <div class="my-5 text-center" v-else-if="isTablette" >
+          <img  src="@/assets/images/logo.png" style="width: 25%;"  />
       </div>
           <v-alert v-if="alert === true"
           v-model="alert"
@@ -208,9 +208,10 @@ import { discountService} from '@/../_services/discount.service';
 import Axios from '../_services/caller.service';
 import { useRouter } from 'vue-router';
 import { useMeta } from 'vue-meta';
+import { checkScreenSize } from '@/composables/screen.js';
 
 
-const showLogo = ref(null);
+const { isDesktop, isMobile, isTablette } = checkScreenSize();
 
 useMeta( {
   title: 'page d\'accueil',
@@ -241,16 +242,22 @@ const discounts = ref([]);
 onMounted( async() => {
     
     userId.value = tokenStore.getTokenId();
-    const discount = await discountService.getDiscount();
-    console.log(discount.data);
-    localStorage.setItem('discountTab', JSON.stringify(discount.data));
+    try {
+      const discount = await discountService.getDiscount();
+      localStorage.setItem('discountTab', JSON.stringify(discount.data));
     discounts.value = discount.data;
+    } catch (error) {
+      console.log(error);
+    }
+    // console.log(discount.data);
+    
     alert.value = false;
     console.log(userId.value);
-    window.addEventListener('resize', isDesktop )
+    // window.addEventListener('resize', isDesktop )
     console.log(tokenStore.getStatusApp);
     cartStore.getDiscount;
-    isDesktop();
+    console.log('ici');
+    // isDesktop();
   
 })
 
@@ -259,16 +266,16 @@ onUpdated( async() => {
 })
 
 
-const isDesktop = () => {
-  const width = window.innerWidth;
-  console.log(width);
-  if(width <= 768){
-    showLogo.value = false;
-  } else {
-    showLogo.value = true;
-  }
+// const isDesktop = () => {
+//   const width = window.innerWidth;
+//   console.log(width);
+//   if(width <= 768){
+//     showLogo.value = false;
+//   } else {
+//     showLogo.value = true;
+//   }
   
-}
+// }
 
 const router = useRouter();
 
@@ -430,8 +437,21 @@ Axios.interceptors.request.use(
 @import "@/assets/main.scss";
 
 .custom-font {
-  font-family: 'paint' ;
+  font-family: 'monSerrat';
 }
+
+.custom-lato {
+  font-family: 'lato';
+}
+
+.custom-paint {
+  font-family: 'paint';
+}
+
+.custom-titles {
+  font-family: 'titles';
+}
+
 
 
 

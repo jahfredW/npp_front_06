@@ -46,7 +46,7 @@
         </v-col>
       </v-form>
       <div class="mt-10">
-      <p v-if=this.agree>
+      <p v-if=agree>
         * Les informations recueillies sur ce formulaire sont enregistrées dans un fichier informatisé par fredGruweDev.com pour sauvegarde. La base légale du traitement est [base légale du traitement].
   
   Les données collectées seront communiquées aux seuls destinataires suivants : [destinataires des données].

@@ -9,12 +9,22 @@ import { ref, onMounted, onUnmounted } from 'vue'
 export function checkScreenSize() {
 
 const isDesktop = ref(false);
+const isMobile = ref(false);
+const isTablette = ref(false);
 
 function update(event){
-    if(window.innerWidth <= 768){
-        isDesktop.value = false;
-    } else {
+    if ( window.innerWidth > 820){
         isDesktop.value = true;
+        isMobile.value = false;
+        isTablette.value = false
+    } else if (window.innerWidth <= 820 && window.innerWidth >= 420){
+        isTablette.value = true;
+        isDesktop.value = false;
+        isMobile.value = false;
+    } else {
+        isMobile.value = true;
+        isDesktop.value = false;
+        isTablette.value = false;
     }
 }
 
@@ -24,7 +34,7 @@ onMounted( () => {
 })
 onUnmounted( () => window.removeEventListener('resize', update))
 
-return { isDesktop }
+return { isDesktop, isMobile, isTablette }
 
 }
 

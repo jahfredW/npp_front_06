@@ -11,12 +11,14 @@ import '@vuepic/vue-datepicker/dist/main.css';
 
 
 
+
 loadFonts()
 const pinia = createPinia();
 const metaManager = createMetaManager(false, {
   ...defaultConfig, 
   meta: { tag:'meta', nameless: true},
 });
+
 
 
 const app = createApp(App)
@@ -28,6 +30,7 @@ const app = createApp(App)
   
 
 app.mount('#app')
+
 
 
 

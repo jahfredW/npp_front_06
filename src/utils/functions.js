@@ -50,6 +50,7 @@ const getTokenExp = () => {
 }
 
 
+// lutte contre les attaques XSS 
 const htmlSpecialChars = (string) => {
 
   // correspondance des caractères spéciaux : 

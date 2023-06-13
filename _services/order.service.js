@@ -6,28 +6,7 @@ import { useTokenStore } from '../src/stores/tokenStore.js'
 
 // méthode de passage de commande
 const makeOrder = (formdata) => {
-    // intanciation des stores
-    // const cartStore = useCartStore();
-    // const tokenStore = useTokenStore();
-
-    // récupération du panier en cours
-    // let cart = cartStore.getCart;
-
-    // récupération de l'id de l'utilisateur connecté 
-    // let userId = tokenStore.getTokenId();
-  
-    // instanciation d'un nouvel objet formData
-    // let formdata = new FormData();
-
-    // on passe le userId, le panier, le total au formData
-    // formdata.append('userId', userId);
-    // formdata.append('cart', JSON.stringify(cart));
-    // formdata.append('total', cart.getTotal);
-
-    // on utilise la méthode post cers la route api.order
     return Axios.post('/api/order', formdata, { headers : { 'Content-Type': 'multipart/form-data'} },)
-
-
 }
 
 const getOrder = (userId) => {

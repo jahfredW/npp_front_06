@@ -1,5 +1,11 @@
 <template>
     <v-container class="container">
+      <!-- <div v-if="openCookieDiag"> -->
+        <DialogCookie :test="openDiag"
+            @dialogSwitch="handleSwichDialog"
+      ></DialogCookie>
+      <!-- </div> -->
+      
       <div id="first-add-title" class="mb-5 h3 custom-font">Retrouvez les photos de vos sessions !</div>
           <div style="position: relative; margin-bottom: 5vh;">
             <!-- <p style="position: absolute; top: 10px; left: 10px; z-index: 2; color: white; font-weight: 500; font-size: larger;">Retrouvez les photos de vos sessions</p> -->
@@ -13,7 +19,7 @@
           <div id="last-add-title" class="mb-5 h3 custom-font">Derniers albums ajoutés : </div>
           <v-row class="container mb-10 d-flex flex-row justify-content-center" >
             <v-col v-for="card in cards" :key="card.title" cols="12" md="4">
-                <v-card elevation="30">
+                <v-card elevation="20">
                     <v-img :src="card.src" class="align-end" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)" height="200px"
               cover
             >
@@ -52,17 +58,49 @@
     </div>
 
 </div> -->
-    </v-container>
+
+<div v-if="acceptCookieBanner">
+  <v-banner lines="two" icon="mdi-cookie-check" color="warning">
+    <template v-slot:text>Vous devez accepter les cookies pour profiter des fonctionnalités
+      du site
+    </template>
+    <template v-slot:actions>
+      <v-btn @click="acceptCookie(true)">Accepter</v-btn>
+      <v-btn  @click="acceptCookie(false)">Refuser</v-btn>
+    </template>
+  </v-banner>
+</div>
+
+</v-container>
     
 </template>
 
 <script setup>
 
 import { ref, onMounted } from 'vue';
+import DialogCookie from '@/components/DialogCookie.vue'
+
+const openCookieDiag = ref(false);
+
+const openDiag = 'home';
+
+const acceptCookieBanner = ref(true);
+
+// const dialog = ref(false);
+
+const handleSwichDialog = (value) => {
+  openCookieDiag.value = value;
+}
+
 
 onMounted( () => {
   window.addEventListener('resize', checkCarouselHeight);
+  acceptCookieBanner.value = $cookies.get('acceptCookie') === null;
   checkCarouselHeight();
+  // setTimeout(() => {
+  //   openDiag.value = true;
+  //   console.log(openDiag.value);
+  // }, 3000)
 })
 
 const carouselHeight = ref(500);
@@ -76,6 +114,24 @@ const checkCarouselHeight = () => {
   } else {
     carouselHeight.value = 500;
   }
+}
+/**
+ * 
+ * @param {bool} accept 
+ * fonction d'acceptation des cookies
+ */
+const acceptCookie = (accept) => {
+  // récupération du jour et définition mois + 1
+  const today = new Date();
+  today.setMonth(today.getMonth() + 1);
+  if(accept){
+    acceptCookieBanner.value = false;
+    console.log(accept);
+    $cookies.set('acceptCookie', accept, today);
+    } else {
+    $cookies.set('acceptCookie', false, today);
+    acceptCookieBanner.value = false;
+    }
 }
 
 const cards = [

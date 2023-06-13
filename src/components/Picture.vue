@@ -20,7 +20,7 @@
             </v-col>
         </v-row>
         <v-row justify="center">
-            <v-col v-if="tokenStore.getStatusApp != 'godMode'" cols="12" sm="12" md="2">
+            <!-- <v-col v-if="tokenStore.getStatusApp != 'godMode'" cols="12" sm="12" md="2">
                 <v-row>
                     <v-col cols="6" md="12">
                         <v-btn size="small" prepend-icon="mdi-cart" color="#dbd47cec" @click="addToCart(id, pictureType)">Ajouter</v-btn>
@@ -29,18 +29,17 @@
                         <v-btn size="small" prepend-icon="mdi-cart" color="#dbd47cec">Acheter</v-btn>
                     </v-col>
                 </v-row>
-            </v-col>
+            </v-col> -->
             <v-col cols="12" sm="12" md="6">
 
                 <div class="clientPicture" style="position: relative; height: 40vh;  ">
                     <img oncontextmenu="return false;" style="position: absolute; object-fit:fill; left: 50%; top: 50%; transform: translate(-50%, -50%); " :src="url" />
                     <v-card class="mx-2 my-2 py-2 px-2" style="position: absolute;">
-                        <v-icon start end size="large" elevation="20" icon="mdi-information" title="infos"
-                            @click=""></v-icon>
+                            <v-icon size = "medium" icon="mdi-cart" start end title="ajouter au panier" @click="addToCart(id, pictureType)">
+                                </v-icon>
                         <v-dialog v-model="dialog" width="1200">
                             <template v-slot:activator="{ props }">
-                                <v-icon size="large" v-bind="props" icon="mdi-fullscreen" start end title="Agrandir">
-
+                                <v-icon size="default" v-bind="props" icon="mdi-fullscreen" start end title="Agrandir">  
                                 </v-icon>
                             </template>
                             <v-card>
@@ -63,9 +62,23 @@
         <v-row justify="center">
 
         </v-row>
-
-
     </v-container>
+    <v-dialog
+      v-model="cookieDialog"
+      width="auto"
+    >
+
+      <v-card>
+        <v-card-text>
+          Pour télécharger des photos, vous devez accepter les cookies. 
+        </v-card-text>
+        <v-card-actions class="text-center">
+          <v-spacer></v-spacer>
+          <v-btn prepend-icon="" color="primary"  @click="checkDialog(false)">Refuser</v-btn>
+          <v-btn color="primary" @click="checkDialog(true)">Accepter</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 </template>
 
 <script setup>
@@ -77,8 +90,11 @@ import { ref, onMounted, onBeforeMount } from 'vue';
 import  { useCartStore }  from './../stores/cartStore';
 import { cartService } from '@/../_services/cart.service';
 import { useTokenStore } from '../stores/tokenStore';
+import DOMPurify from 'dompurify';
+
 
 // init 
+const cookieDialog = ref(false);
 const tokenStore = useTokenStore();
 const snackbar = ref(false);
 const snackText = ref("");
@@ -92,6 +108,7 @@ const pictureType = ref('');
 const picturePrice = ref(null);
 
 
+
 /**
  * hook : montage, on récupère les informations liées à la photographie. 
  */
@@ -100,9 +117,9 @@ onMounted( async() => {
     const response = await pictureService.getPictureById(id);
     const responseName = await pictureService.getPictureName(id);
     const responseType = await pictureService.getPictureType(id);
-    url.value = response.data;
-    pictureName.value = responseName.data;
-    pictureType.value = responseType.data;
+    url.value = DOMPurify.sanitize(response.data);
+    pictureName.value = DOMPurify.sanitize(responseName.data);
+    pictureType.value = DOMPurify.sanitize(responseType.data);
 } catch(error) {
     console.error(error);
 }
@@ -116,12 +133,25 @@ onMounted( async() => {
  */
 const addToCart = async(id, idProduct) => {
 
+    if($cookies.get('acceptCookie') === 'true'){
+        await getPrice(idProduct);
+        let res = await cartService.addToCart(id);
+        cartStore.addToCartLine(id, 1, picturePrice.value, url.value, pictureType.value, pictureName.value);
+        let cart = localStorage.getItem('cart');
+        snackbar.value = true;
+    } else {
+        cookieDialog.value = true;
+    }
     
-    await getPrice(idProduct);
-    let res = await cartService.addToCart(id);
-    cartStore.addToCartLine(id, 1, picturePrice.value, url.value, pictureType.value, pictureName.value);
-    let cart = localStorage.getItem('cart');
-    snackbar.value = true;
+}
+
+const checkDialog = (choice) => {
+    if(choice){
+        $cookies.set('acceptCookie', choice);
+    } else {
+        $cookies.set('acceptCookie', choice);
+    }
+    cookieDialog.value = false
 }
 
 const getPrice = async(idProduct) => {
@@ -129,6 +159,7 @@ const getPrice = async(idProduct) => {
         picturePrice.value = price.data;
         console.log(picturePrice.value);
     }
+
 
 
 

@@ -13,7 +13,7 @@ import PublicNav from '../../components/PublicNav.vue'
 </script> -->
 
 <template>
-    <div>
+    <div class="pt-5" >
         <!-- <v-row class="d-flex flex-row justify-content-center mt-2 " >
             <div class="mx-10">
                 <img src="logoCanva3.png"  />
@@ -29,8 +29,8 @@ import PublicNav from '../../components/PublicNav.vue'
                 </v-btn>
             </template>
         </v-snackbar> -->
-        <v-divider></v-divider>
-        <v-row v-if="isDesktop"  class="text-center custom-font">
+        <!-- <v-divider></v-divider> -->
+        <v-row v-if="isDesktop" class="text-center custom-titles">
             <v-col  cols="2" >
                 <v-list-item link >Albums Photos</v-list-item>  
             </v-col>

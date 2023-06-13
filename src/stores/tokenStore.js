@@ -46,7 +46,6 @@ export const useTokenStore = defineStore('getToken', {
 
     // analyse la validité du token ( date et role)
     getTokenValidity(){
-    
       const timeStampInSeconds = Date.now();
       const date = timeStampInSeconds / 1000;
       if(this.token){
@@ -56,18 +55,13 @@ export const useTokenStore = defineStore('getToken', {
         // si la date est expirée alert, remove du token du localstorage et redirection
         this.token = "";
         this.setStatusApp('expired');
-        // alert('session expirée');
-        // localStorage.removeItem('token');
-        // this.setStatusApp('public');
       // si le token est ok, on vérifie le role de l'utilisateur 
       } else {
         let roles = this.decodeToken(this.token);
         // Si role admin : on passe en god mode 
          if(roles.includes('ROLE_USER')) {
-          console.log('userrrrr');
           this.setStatusApp('userMode')
         } if(roles.includes('ROLE_BANNISHED')){
-          console.log('babbbbbbbbbbbb');
           this.setStatusApp('bannished')
         } if (roles.includes('ROLE_ADMIN')){
           this.setStatusApp('godMode')
@@ -80,7 +74,6 @@ export const useTokenStore = defineStore('getToken', {
       } else {
         return false;
       }
-      
     },
 
     // implémentation des setters 

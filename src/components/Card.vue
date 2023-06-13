@@ -56,6 +56,22 @@
         </v-col>
       </v-row>
     </v-container>
+    <v-dialog
+      v-model="dialog"
+      width="auto"
+    >
+
+      <v-card>
+        <v-card-text>
+          Pour télécharger des photos, vous devez accepter les cookies. 
+        </v-card-text>
+        <v-card-actions class="text-center">
+          <v-spacer></v-spacer>
+          <v-btn prepend-icon="" color="primary"  @click="checkDialog(false)">Refuser</v-btn>
+          <v-btn color="primary" @click="checkDialog(true)">Accepter</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 </template>
 
 
@@ -84,6 +100,8 @@ onBeforeUpdate( () => {
 })
 
 // init 
+const dialog = ref();
+
 const cartStore = useCartStore();
 const router = useRouter();
 const tokenStore = useTokenStore();
@@ -147,17 +165,23 @@ const getName = async(id) => {
 // méthode d'ajout au panier 
 const addToCart = async(id) => {
         try { 
-            await getIdProduct(id);
-            await getPrice(idProduct.value);
-            await getUrl(id);
-            await getName(id);
-            let res = await cartService.addToCart(id);
-            let cookies = document.cookie;
-            console.log('cookies,', cookies);
-            cartStore.addToCartLine(id, 1, picturePrice.value, pictureUrl.value, idProduct.value, pictureName.value);
-            console.log(res);
-            let cart = localStorage.getItem('cart');
-            snackbar.value = true;
+            if($cookies.get('acceptCookie') === 'true'){
+                await getIdProduct(id);
+                await getPrice(idProduct.value);
+                await getUrl(id);
+                await getName(id);
+                let res = await cartService.addToCart(id);
+                // let cookies = document.cookie;
+                // console.log('cookies,', cookies);
+                cartStore.addToCartLine(id, 1, picturePrice.value, pictureUrl.value, idProduct.value, pictureName.value);
+                console.log(res);
+                let cart = localStorage.getItem('cart');
+                snackbar.value = true;
+            } else {
+                dialog.value = true;
+                
+            }
+            
         } catch(error) {
             console.error(error);
         }
@@ -219,6 +243,15 @@ const handleClick = (event) => {
  */
 const pictureRead = (id) => {
     router.push('/picture/' + id)
+}
+
+const checkDialog = (choice) => {
+    if(choice){
+        $cookies.set('acceptCookie', choice);
+    } else {
+        $cookies.set('acceptCookie', choice);
+    }
+    dialog.value = false
 }
 
 

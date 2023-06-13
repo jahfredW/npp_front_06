@@ -16,43 +16,43 @@
             <v-table>
                 <thead>
                     <tr>
-                        <th class="text-left text-center align-middle">
+                        <th colspan="2" class="text-left text-center align-middle">
                             Aperçu
                         </th>
-                        <th class="text-left text-center align-middle">
+                        <th colspan="2" v-if="isDesktop" class="text-left text-center align-middle">
                             Identifiant
                         </th>
-                        <th class="text-left text-center align-middle">
+                        <th colspan="2" class="text-left text-center align-middle">
                             Prix
                         </th>
-                        <th class="text-left text-center align-middle">
-                            Quantité
-                        </th>
-                        <th   class="text-left text-center align-middle">
+                        <th colspan="2" class="text-left text-center align-middle">
                             
                         </th>
+                        <!-- <th   class="text-left text-center align-middle">
+                            
+                        </th> -->
                     </tr>
                 </thead>
                 <tbody>
 
                     <tr v-for="item in cartValue">
-                        <td><v-img style="cursor : pointer" :src="item.url" class="my-2"
+                        <td colspan="2"><v-img style="cursor : pointer" :src="item.url" class="my-2"
                                 @click="seePicture(item.idPicture)" link /></td>
-                        <td class="text-center align-middle">{{ item.pictureName }} </td>
-                        <td class="text-center align-middle" >{{ item.price }} €</td>
+                        <td colspan="2" v-if="isDesktop " class="text-center align-middle">{{ item.pictureName }} </td>
+                        <td colspan="2" class="text-center align-middle" >{{ item.price }} €</td>
                         <td class="text-center align-middle"> <v-icon @click="updateQuantityCart(item.idPicture, 'less')" size="small"
-                                icon="mdi-minus-circle-multiple" hidden></v-icon> {{ item.quantity }}
+                                icon="mdi-minus-circle-multiple" hidden></v-icon> x {{ item.quantity }}
                             <v-icon @click="updateQuantityCart(item.idPicture, 'more')" size="small"
                                 icon="mdi-plus-circle-multiple" hidden></v-icon>
                             <!-- <v-icon @click="trashItemFromCart(item.idPicture)" size="small" icon="mdi-trash-can"
                                 class="ml-1"></v-icon> -->
                         </td>
-                        <td class="text-center align-middle" > <v-icon @click="trashItemFromCart(item.idPicture)" size="small" icon="mdi-trash-can"
+                        <td colspan="1" class="text-center align-middle" > <v-icon @click="trashItemFromCart(item.idPicture)" size="small" icon="mdi-trash-can"
                                 class="ml-1"></v-icon></td>
                     </tr>
                     <tr >
-                        <td colspan="4"></td>
-                        <td class="pa-4">
+                        <td v-if="isDesktop" colspan="4"></td>
+                        <td class="pa-4" colspan="12">
                             <strong>total : {{ cartStore.getTotal }} € TTC</strong>
                         </td>
                     </tr>
@@ -60,13 +60,18 @@
                         <td colspan="4" class="pa-4">
                             <strong>{{ cartStore.getDiscountComment }}</strong>
                         </td>
-                        <td colspan="4" class="pa-4">
+                        <td v-if="isDesktop" colspan="4" class="pa-4">
                             <strong> - {{ cartStore.getTotal - cartStore.getTotalWithDiscount }}€ </strong>
                         </td>
+                       
+                            <td v-else  colspan="8" class="pa-4">
+                            <strong> - {{ cartStore.getTotal - cartStore.getTotalWithDiscount }}€ </strong>
+                        </td>
+                        
                     </tr>
                     <tr v-if="checkDiscounts()" >
-                        <td colspan="4"></td>
-                        <td class="pa-4">
+                        <td v-if="isDesktop" colspan="4"></td>
+                        <td v-else class="pa-4" colspan="12">
                             <strong>total : {{ cartStore.getTotalWithDiscount }}€ TTC</strong>
                         </td>
                     </tr>
@@ -75,9 +80,11 @@
 
         </v-card-text>
         <v-card-actions v-if="!checkPath()" class="justify-end">
-            <v-btn v-if="!checkPath()" variant="text" @click="$emit('closeCart', closeCart)">fermer</v-btn>
-            <v-btn variant="text" @click="trashCart(), $emit('closeCart', closeCart)">Vider Panier</v-btn>
-            <v-btn variant="text" @click="makeOrder">Valider Panier</v-btn>
+            <v-btn v-if="!checkPath()" variant="text" @click="$emit('closeCart', closeCart)">
+                <div v-if="isDesktop">fermer</div><v-icon size=large v-else icon="mdi-close"></v-icon></v-btn>
+            <v-btn variant="text" @click="trashCart(), $emit('closeCart', closeCart)">
+                <div v-if="isDesktop">Vider Panier</div><v-icon v-else icon="mdi-cancel"></v-icon></v-btn>
+            <v-btn variant="text" @click="makeOrder"><div v-if="isDesktop">Valider Panier</div><v-icon v-else icon="mdi-check"></v-icon></v-btn>
     </v-card-actions>
 </v-card>
 </template>
@@ -93,8 +100,11 @@ import { cartService } from '@/../_services/cart.service';
 import { discountService } from '@/../_services/discount.service';
 import VueCookies from 'vue-cookies'
 import { useRouter } from 'vue-router';
+import { checkScreenSize } from '@/composables/screen.js';
 
 // au montage du composant, récupération des bons de réduction
+
+const { isDesktop } = checkScreenSize();
 
 onMounted( () => {
     getDiscounts();

@@ -32,7 +32,7 @@
                     
                     <v-col v-if="statusApp === 'godMode'"  cols="12" md="4">
                       
-                                <v-row class="text-center" v-if="switchValue" style="display: flex; align-items:center">
+                                <v-row class="text-center" v-if="switchValue" style="display: flex; align-items:center; justify-content: center; ">
                                    
                                     <v-col cols="4"><v-icon  style="transform: scale(1.2);" >mdi-access-point</v-icon></v-col>
                                     <v-col cols="4">
@@ -42,7 +42,7 @@
                                     </v-col >
                                 </v-row>
                     
-                                <v-row class="text-center" v-else style="display: flex; align-items:center; justify-content: space-around;" >
+                                <v-row class="text-center" v-else style="display: flex; align-items:center; justify-content: center;" >
                                    
                                     <v-col cols="4"><v-icon  style="transform: scale(1.2);" >mdi-access-point-network-off</v-icon></v-col>
                                     <v-col cols="4">

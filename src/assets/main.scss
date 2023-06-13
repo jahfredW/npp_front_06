@@ -211,16 +211,31 @@
 }
 
 
-    @font-face {
-      font-family: 'caca';
-      src: url('fonts/RubikMoonrocks-Regular.ttf') format('truetype');
-    }
+  @font-face {
+    font-family: 'caca';
+    src: url('fonts/RubikMoonrocks-Regular.ttf') format('truetype');
+  }
 
-    @font-face {
-      font-family: 'paint';
-      src: url('fonts/FingerPaint-Regular.ttf') format('truetype');
-    }
+  @font-face {
+    font-family: 'paint';
+    src: url('fonts/FingerPaint-Regular.ttf') format('truetype');
+  }
 
+  @font-face {
+    font-family: 'monSerrat';
+    src: url('fonts/Montserrat-Regular.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'titles';
+    src: url('fonts/Montserrat-SemiBold.ttf') format('truetype');
+  }
+
+
+  @font-face {
+    font-family: 'lato';
+    src: url('fonts/Lato-Regular.ttf') format('truetype');
+  }
 
     // AlbumCardVue.vue - largeur de la notification de fin de liste
   @media screen and (max-width: 376px) {

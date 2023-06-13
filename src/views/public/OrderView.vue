@@ -8,7 +8,7 @@
            
               <v-card v-if="!userId || !hasAdress">
                 <v-card-title>
-                  <h3 class="mb-5 text-center">Mettez à jour votre adresse de facturation :</h3>
+                  <h3 class="mb-5 text-center">adresse de facturation :</h3>
                 </v-card-title>
                 <v-card-text>
                   <v-form id="form" v-model="valid" ref="form">

@@ -69,8 +69,9 @@ Axios.interceptors.request.use(request => {
             }
 
             const currentRoute = router.currentRoute.value;
-
+            console.log(currentRoute.matched[0].name);
             if(statusApp === "userMode" && currentRoute.matched[0].name === 'admin'){
+                
                 alert('Url non autorisée!')
                 router.push('/');
             }
