@@ -16,7 +16,7 @@
             </v-carousel>
        
           </div>
-          <div id="last-add-title" class="mb-5 h3 custom-font">Derniers albums ajoutés : </div>
+          <div  class="mb-5 h3 custom-font">Derniers albums ajoutés : </div>
           <v-row class="container mb-10 d-flex flex-row justify-content-center" >
             <v-col v-for="card in cards" :key="card.title" cols="12" md="4">
                 <v-card elevation="20">

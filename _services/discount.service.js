@@ -14,8 +14,15 @@ const getDiscountByOrderId = (orderId = null) => {
     return Axios.get('api/discounts/order/' + orderId);
 }
 
+const deleteDiscount = (discountId) => {
+    return Axios.delete('api/discounts/' + discountId)
+}
+
+
+
 
 export const discountService = {
     getDiscount,
-    getDiscountByOrderId
+    getDiscountByOrderId,
+    deleteDiscount
 }

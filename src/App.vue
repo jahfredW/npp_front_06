@@ -324,6 +324,7 @@ const adminItems = [
   { title: 'Devis', to: '/admin/devis'},
   { title: 'Commandes', to: '/admin/orders'},
   { title: 'Factures', to: '/admin/invoices'},
+  { title: 'Réductions', to: '/admin/discounts'},
 
 ]
 
