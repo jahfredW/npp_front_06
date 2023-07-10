@@ -180,7 +180,7 @@ const makeOrdered = () => {
           // window.location.replace(res.data);
           // res.redirect(res.data)
           // window.open(res.data, '_blank');
-          // $cookies.remove('cartId')
+          $cookies.remove('cartId')
           console.log(res.data);
          
           stripe.redirectToCheckout({

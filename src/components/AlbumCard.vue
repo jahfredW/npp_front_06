@@ -68,9 +68,13 @@
                 </v-row>
                 <v-divider></v-divider>
                 <v-row class="d-flex flex-row justify-content-center pb-3" >
-                    <v-col cols="12" md="6" class="text-center my-auto"  >
-                        <div class="h5">Categorie : </div>
-                        <p style="font-size: 15px;">{{ test.category.name }}</p>
+                    <v-col cols="6" md="6" class="text-center my-auto"  >
+                        <div style="font-size: 16px;">Type : </div>
+                        <p class="h5">{{ test.product.name }}</p>
+                    </v-col>
+                    <v-col cols="6" md="6" class="text-center my-auto"  >
+                        <div style="font-size: 16px;" >Categorie : </div>
+                        <p class="h5">{{ test.category.name }}</p>
                     </v-col>
                     <v-col cols="12" md="6" class="text-center my-auto"  >
                         <div class="h5">Expire dans <strong>{{ countDownValue }}</strong>  jours </div>

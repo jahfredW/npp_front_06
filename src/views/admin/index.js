@@ -9,7 +9,10 @@ import AlbumUpdateVue from './AlbumUpdateVue.vue';
 import UsersManagementView from './UsersManagementView.vue';
 import UserDetailView from './UserDetailView.vue';
 import DiscountsManagementView from './DiscountsManagementView.vue';
+import DiscountsUpdateFormView from './DiscountsUpdateFormView.vue';
+import DiscountCreateFormView from './DiscountCreateFormView.vue';
 
 
 export { UploadPictures, AdminDashboard, AlbumFormVue, ReadAlbumsVue, AlbumCardVue, AlbumListeVue, 
-PictureVue, AlbumUpdateVue, UsersManagementView, UserDetailView, DiscountsManagementView} 
+PictureVue, AlbumUpdateVue, UsersManagementView, UserDetailView, DiscountsManagementView, DiscountsUpdateFormView, 
+DiscountCreateFormView } 

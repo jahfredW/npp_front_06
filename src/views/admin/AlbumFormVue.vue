@@ -129,7 +129,7 @@ const uploadFiles = () => {
             failureUpload.push(image);
           }
 
-          if (imageSize > 20000000) {
+          if (imageSize > 200000000) {
             alert(`Désolé, mais l\'image ${image.name} dépasse la taille autorisée `)
             failureUpload.push(image);
           }

@@ -155,7 +155,7 @@ onMounted( async() => {
     let types = await productService.getAllProducts();
     
 
-    let typesParsed = JSON.parse(types.data);
+    let typesParsed = types.data;
     categories.value = cat.data;
     for (let item of cat.data){
         if (item.id == categoryId){
@@ -163,7 +163,7 @@ onMounted( async() => {
             break;
         }
     }
-    typeOfProduct.value = JSON.parse(types.data);
+    typeOfProduct.value = types.data;
     for (let item of typesParsed){
         console.log(item)
         if (item.id == typeId){
@@ -243,5 +243,6 @@ const reset = () => {
 
 // position du pop up de datePicker 
 // const customPosition = () => ({ top : -170});
+
 
 </script>

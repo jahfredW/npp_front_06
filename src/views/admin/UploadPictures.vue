@@ -120,8 +120,8 @@ const uploadFiles = () => {
           alert('Au moins une image contient une extension inconnue')
           failureUpload.push(image);
         }
-
-        if (imageSize > 20000000){
+        console.log(imageSize);
+        if (imageSize > 200000000){
           alert(`Désolé, mais l\'image ${image.name} dépasse la taille autorisée `)
           failureUpload.push(image);
         }

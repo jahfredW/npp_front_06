@@ -33,7 +33,7 @@
                                     </template>
                                     <v-list>
                                         <div>
-                                            <v-list-item class="custom-bg" v-for="item in items" :key="item.title" @click="selectItem(item, discount.id)">
+                                            <v-list-item class="custom-bg" v-for="item in items" :key="item.id" @click="selectItem(item, discount.id)">
                                                 <v-btn :prepend-icon="item.icon" :color="item.color" >{{ item.title }} </v-btn>
                                             </v-list-item>
                                         </div>
@@ -47,7 +47,7 @@
         </v-row>
         <v-row>
             <v-col cols="12" class="d-flex flex-row justify-content-end">
-                <v-btn :prepend-icon="mdi_check()" class="custom-button">Ajouter</v-btn>
+                <v-btn :prepend-icon="mdi_check()" @click="create_discount()" class="custom-button">Ajouter</v-btn>
             </v-col>
         </v-row>
         <InfiniteLoading @infinite="load" :distance="3" :firstload="true" >
@@ -80,8 +80,8 @@ onMounted(async( ) => {
 
 // liste des onglets 
 const items = [
-    { title : "Modifier la réduction", icon :"mdi-pen", color : "blue" }, 
-    { title : "Supprimer", icon : "mdi-delete", color : "red", }
+    { id: 1, title : "Modifier la réduction", icon :"mdi-pen", color : "blue" }, 
+    { id: 2, title : "Supprimer", icon : "mdi-delete", color : "red", }
 ]
 
 
@@ -89,17 +89,17 @@ const items = [
 // Avec redirections de routes 
 const selectItem = (item, id) => {
   console.log(`Selected ${item.title}`);
-  if(item.title === "Supprimer"){
+  if(item.id === 2){
     if(confirm('Attention cette action est définitive! Continuer ?')){
         discountService.deleteDiscount(id).then( res => {
             alert('Réduction supprimée avec succès');
             router.go(0);
     }).catch( err => alert('Erreur lors de la suppression') )
     }
-  } else if(item.title === "Modifier") {
-    router.push('/admin/discount/update/' + id);
+  } else if(item.id === 1) {
+    router.push('/admin/discounts/update/' + id);
   } else {
-    router.push('/admin/discount/create/' + id);
+    router.push('/admin/discounts/update/');
   }
 };
 
@@ -110,6 +110,10 @@ const mdi_check = () => {
     } else {
         return "mdi-plus";
     }
+}
+
+const create_discount = () => {
+    router.push('/admin/discounts/create');
 }
 
 

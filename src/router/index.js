@@ -9,7 +9,7 @@ import { LoginVue, UserDashboardVue, UserPasswordVue, UserPasswordSuccessVue, Us
     UserEmailUpdateVue, UserBannishedPageView } from '@/views/auth/index';
 import { AdminDashboard, UploadPictures, AlbumFormVue, 
     ReadAlbumsVue, AlbumCardVue, AlbumListeVue, PictureVue, AlbumUpdateVue, 
-UsersManagementView, UserDetailView, DiscountsManagementView } from '@/views/admin';
+UsersManagementView, UserDetailView, DiscountsManagementView, DiscountsUpdateFormView, DiscountCreateFormView } from '@/views/admin';
 
 import { AlbumCard, AlbumListe }  from '@/components';
 
@@ -74,6 +74,8 @@ const routes = [
                 pseudo: route.query.pseudo || null,
               }) },
             { path : 'discounts', name: 'discounts', component: DiscountsManagementView},
+            { path : 'discounts/update/:id(\\d+)', name : 'update-discount', component: DiscountsUpdateFormView },
+            { path : 'discounts/create', name : 'create-discount', component: DiscountCreateFormView },
             { path: 'users/:id', name: 'users-detail', component: UserDetailView, props: (route) => ({
                 userPseudo: route.query.userPseudo || null
             }) },

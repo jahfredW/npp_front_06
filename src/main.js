@@ -11,7 +11,6 @@ import '@vuepic/vue-datepicker/dist/main.css';
 
 
 
-
 loadFonts()
 const pinia = createPinia();
 const metaManager = createMetaManager(false, {
@@ -28,6 +27,7 @@ const app = createApp(App)
   .use(vuetify)
   .component('VueDatePicker', VueDatePicker);
   
+
 
 app.mount('#app')
 

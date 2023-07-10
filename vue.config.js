@@ -9,13 +9,18 @@ module.exports = {
     publicPath: process.env.PUBLIC_URL || "/", // <-- this is correct now (and default)
     transpileDependencies: ["vuetify"],
       devServer: {
-        contentSecurityPolicy: {
-          directives: {
-            defaultSrc: ["'self'"],
-            scriptSrc: ["self", "https://js.stripe.com", "https://checkout.stripe.com/"],
-            frameSrc: ["'self'","https://js.stripe.com", "https://checkout.stripe.com"],
-          }
-        },
+        allowedHosts: 'all',
+        // contentSecurityPolicy: {
+        //   headers: {
+        //     'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'",
+        //     // Ajoutez d'autres directives selon vos besoins
+        //   },
+        //   // directives: {
+        //   //   defaultSrc: ["'self'"],
+        //   //   scriptSrc: ["'self'", "https://js.stripe.com", "https://checkout.stripe.com/"],
+        //   //   frameSrc: ["'self'","https://js.stripe.com", "https://checkout.stripe.com"],
+        //   // }
+        // },
         proxy: {
           '^/users': {
             target: 'https://localhost:8080/',

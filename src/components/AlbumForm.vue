@@ -26,12 +26,12 @@
 
         <div v-if="((url.includes('create'))  && (id === null) )">
           <!-- attention cas de blocage : mettre l'écoute à la fin  -->
-          <v-select  variant="outlined" density="compact" prepend-inner-icon="mdi-format-list-bulleted" label="Type de photo" v-model="albumType" :items="types" item-title="type" item-value="id"
+          <v-select  variant="outlined" density="compact" prepend-inner-icon="mdi-format-list-bulleted" label="Type de photo" v-model="albumType" :items="types" item-title="name" item-value="id"
           @update:modelValue="$emit('typeUpdated', albumType)"></v-select>
         </div>
         <div v-else-if="((url.includes('update'))  && (id !== null) )">
           <!-- attention cas de blocage : mettre l'écoute à la fin  -->
-          <v-select  variant="outlined" density="compact" prepend-inner-icon="mdi-format-list-bulleted" label="type de photo" v-model="albumType" :items="types" item-title="type" item-value="id"
+          <v-select  variant="outlined" density="compact" prepend-inner-icon="mdi-format-list-bulleted" label="type de photo" v-model="albumType" :items="types" item-title="name" item-value="id"
           @update:modelValue="$emit('typeUpdated', albumType)"></v-select>
         </div>
 
@@ -81,6 +81,7 @@ import VueDatePicker from '@vuepic/vue-datepicker';
 import { useRouter, useRoute } from 'vue-router';
 import '@vuepic/vue-datepicker/dist/main.css';
 import { categoryService } from '../../_services/category.service';
+import { productService } from '@/../_services/product.service';
 import { albumService } from '../../_services/album.service';
 
 let route = useRoute();
@@ -89,13 +90,14 @@ let route = useRoute();
 onMounted( async() => {
 
   let cat = await categoryService.getAllCategories();
-  console.log(cat.data);
+
+  // récupération des types de photos. 
+  let products = await productService.getAllProducts();
+
   categories.value = cat.data;
 
-  types.value = [
-    {id : 1, type : 'photo classique'},
-    {id : 2, type : 'photo de stage'}
-  ]
+  types.value = products.data;
+  console.log(types.value);
 
     if(route.params.id){
       
@@ -103,10 +105,11 @@ onMounted( async() => {
       id.value = route.params.id
       let data = await albumService.getOneAlbumInfo(ide);
       let album = data.data;
+      console.log(album);
       albumName.value = album.name;
       albumCategory.value = album.category;
       albumMoment.value = album.morning ? "matin" : "après-midi";
-      // albumType.value = album.type;
+      albumType.value = album.product;
       
 
     emit('nameUpdated', albumName.value);
@@ -114,7 +117,8 @@ onMounted( async() => {
     emit('momentUpdated', albumMoment.value);
     emit('dateUpdated', albumDate.value);
     emit('validationUpdated', valid.value);
-    // emit('typeUpdated', albumType.value );
+    // console.log(albumType.value[0].id);
+    emit('typeUpdated', albumType.value );
 
 
     } else {

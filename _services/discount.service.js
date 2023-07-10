@@ -15,7 +15,15 @@ const getDiscountByOrderId = (orderId = null) => {
 }
 
 const deleteDiscount = (discountId) => {
-    return Axios.delete('api/discounts/' + discountId)
+    return Axios.delete('api/discounts/' + discountId);
+}
+
+const discount_update = (discountId, formdata) => {
+    return Axios.put('api/discounts/' + discountId, formdata, { headers : { 'Content-Type': 'application/json'}} );
+}
+
+const discount_create = (formdata) => {
+    return Axios.post('api/discounts', formdata, { headers : { 'Content-Type': 'application/json'}} )
 }
 
 
@@ -24,5 +32,7 @@ const deleteDiscount = (discountId) => {
 export const discountService = {
     getDiscount,
     getDiscountByOrderId,
-    deleteDiscount
+    deleteDiscount,
+    discount_update,
+    discount_create
 }
