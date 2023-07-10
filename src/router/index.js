@@ -9,13 +9,14 @@ import { LoginVue, UserDashboardVue, UserPasswordVue, UserPasswordSuccessVue, Us
     UserEmailUpdateVue, UserBannishedPageView } from '@/views/auth/index';
 import { AdminDashboard, UploadPictures, AlbumFormVue, 
     ReadAlbumsVue, AlbumCardVue, AlbumListeVue, PictureVue, AlbumUpdateVue, 
-UsersManagementView, UserDetailView, DiscountsManagementView, DiscountsUpdateFormView, DiscountCreateFormView } from '@/views/admin';
+UsersManagementView, UserDetailView, DiscountsManagementView, DiscountsUpdateFormView, DiscountCreateFormView, OrdersManagementView } from '@/views/admin';
 
 import { AlbumCard, AlbumListe }  from '@/components';
 
 import { createWebHistory, createRouter } from 'vue-router';
 import { decodeTokenValidity } from '@/../_helpers/auth_guard'
 import { decodeAdmin } from '@/../_helpers/auth_guard'
+import OrdersManagementViewVue from '../views/admin/OrdersManagementView.vue';
 
 
 const routes = [
@@ -76,6 +77,9 @@ const routes = [
             { path : 'discounts', name: 'discounts', component: DiscountsManagementView},
             { path : 'discounts/update/:id(\\d+)', name : 'update-discount', component: DiscountsUpdateFormView },
             { path : 'discounts/create', name : 'create-discount', component: DiscountCreateFormView },
+            { path : 'orders', name : 'user-orders', component: OrdersManagementView, props: (route) => ({
+                userId: route.query.userId || null
+            }) },
             { path: 'users/:id', name: 'users-detail', component: UserDetailView, props: (route) => ({
                 userPseudo: route.query.userPseudo || null
             }) },

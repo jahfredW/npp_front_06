@@ -19,6 +19,17 @@ const dateFormat = (date) => {
     return formatedDate;
 }
 
+//formate une date immutable réçue du back
+const dateImmutableFormat = (date) => {
+    let splitDate = date.split('T');
+    let leftDate = splitDate[0].split('-');
+    let day = leftDate[2];
+    let month = leftDate[1];
+    let year = leftDate[0];
+    let convertDate = `${day}/${month}/${year}`;
+    return convertDate;
+  }
+
 const convertDay = (month) => {
     const months = {
       Jan: '01',
@@ -105,6 +116,7 @@ export const utils = {
     getTokenExp,
     htmlSpecialChars,
     cleanUp, 
-    countDown
+    countDown,
+    dateImmutableFormat
     
 }

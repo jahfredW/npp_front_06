@@ -11,8 +11,9 @@ import UserDetailView from './UserDetailView.vue';
 import DiscountsManagementView from './DiscountsManagementView.vue';
 import DiscountsUpdateFormView from './DiscountsUpdateFormView.vue';
 import DiscountCreateFormView from './DiscountCreateFormView.vue';
+import OrdersManagementView from './OrdersManagementView.vue';
 
 
 export { UploadPictures, AdminDashboard, AlbumFormVue, ReadAlbumsVue, AlbumCardVue, AlbumListeVue, 
 PictureVue, AlbumUpdateVue, UsersManagementView, UserDetailView, DiscountsManagementView, DiscountsUpdateFormView, 
-DiscountCreateFormView } 
+DiscountCreateFormView, OrdersManagementView } 

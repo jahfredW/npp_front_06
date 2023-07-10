@@ -8,14 +8,14 @@
                 <v-table>
                     <thead>
                         <tr>
-                            <th v-if="isDesktop" class="text-left">
-                                intitulé
+                            <th  class="text-left">
+                                date
                             </th>
                             <th  class="text-left">
-                                Taux
+                                Status
                             </th>
-                            <th  class="text-center">
-                                Articles
+                            <th  v-if="isDesktop" class="text-center">
+                                stripeId
                             </th>
                             <th  class="text-center">
                                 Actions
@@ -23,10 +23,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="discount in discounts" link>
-                            <td v-if="isDesktop" class="align-middle">{{ discount.title }}</td>
-                            <td class="align-middle">{{ discount.rate }} %</td>
-                            <td class="text-center align-middle">{{ discount.articles }}</td>
+                        <tr v-for="order in orders" link>
+                            <td  class="align-middle">{{ format(order.createdAt) }}</td>
+                            <td class="align-middle">{{ order.status }}</td>
+                            <td v-if="isDesktop" class="text-center align-middle"><v-icon icon="mdi-eye"></v-icon></td>
                             <td class="text-center align-middle">
                                 <v-menu  open-on-click  :close-on-content-click="true" location="top" >
                                     <template   v-slot:activator="{ props }">
@@ -80,25 +80,36 @@
 </template>
 
 <script setup>
-import { discountService } from '@/../_services/discount.service';
+import { orderService } from '@/../_services/order.service';
 import { onMounted, ref } from 'vue';
 import { checkScreenSize } from '@/composables/screen'
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
+import { utils } from '@/utils/functions';
 
 const { isDesktop } = checkScreenSize();
 
 const router = useRouter();
+const route = useRoute();
 
-const discounts = ref(null);
+const orders = ref(null);
 
 const dialog = ref(false);
 
+const format = (date) => {
+    console.log(date);
+    return utils.dateImmutableFormat(date);
+}
+
+const sayHello = () => {
+    return "hello";
+}
 
 // hook montage du composant : récupération de la liste des discounts et affectation 
 // à la propriété réactive 
 onMounted(async( ) => {
-    let discountsList = await discountService.getDiscount();
-    discounts.value = discountsList.data;
+    let ordersList = await orderService.getOrder(route.query.userId);
+    orders.value = ordersList.data;
+    console.log(ordersList);
 })
 
 // liste des onglets 

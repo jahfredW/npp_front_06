@@ -19,6 +19,7 @@
             <div>
                 <v-row >
                     <v-col v-if="addressState.title" cols="12" md="6">
+                        <div class="text-h5 mb-5">Adresse</div>
                         <div class="d-flex flex-row justify-content-begin">
                             <div class="px-3">Intitulé: </div>
                             <div> {{ addressState.title }}</div>
@@ -66,7 +67,7 @@
                             <v-divider></v-divider>
                                 <div class="d-flex flex-row justify-content-around">
                                 <div>Commandes : {{  userState.order }}</div>
-                                <v-icon @click="seeOrders()" icon="mdi-eye"></v-icon>
+                                <v-icon @click="seeOrders(userState.id)" icon="mdi-eye"></v-icon>
                             </div>
                             <v-divider></v-divider>
                             <div class="d-flex flex-row justify-content-around">
@@ -113,6 +114,7 @@
 import { ref, reactive, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { accountService } from '@/../_services/account.service';
+import { orderService } from '@/../_services/order.service';
 import { resolveOption } from 'vue-meta';
 
 
@@ -248,6 +250,15 @@ const updateUserRole = (userId, userRole) => {
     let formData = {}
     formData['role'] = userRole;
     accountService.userChangeStatus(userId, formData)
+}
+
+const seeOrders = async(userId) => {
+    const query = {}
+    query.userId = userId;
+    router.push({
+        name: 'user-orders',
+        query
+    })
 }
 
 </script>

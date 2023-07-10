@@ -12,13 +12,13 @@
          />
       
       
-    <p>c value in parent: {{ categoryValue }}</p>
+    <!-- <p>c value in parent: {{ categoryValue }}</p>
     <p>Name value in parent: {{ nameValue }}</p>
     <p>Name value in parent: {{ typeValue }}</p>
     <p>Name value in parent: {{ dateValue }}</p>
     <p>Name value in parent: {{ momentValue }}</p>
     <p>Name value in parent: {{ filesValue }}</p>
-    <p>Name value in parent: {{ validationValue }}</p>
+    <p>Name value in parent: {{ validationValue }}</p> -->
     <!-- <p>{{ id }}</p> -->
     <v-btn :disabled="!validationValue" color="success" @click="uploadFiles">Upload !</v-btn>
           <br>
