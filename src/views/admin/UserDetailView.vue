@@ -69,11 +69,11 @@
                                 <div>Commandes : {{  userState.order }}</div>
                                 <v-icon @click="seeOrders(userState.id)" icon="mdi-eye"></v-icon>
                             </div>
-                            <v-divider></v-divider>
+                            <!-- <v-divider></v-divider>
                             <div class="d-flex flex-row justify-content-around">
                                 <div>Factures : ... </div>
                                 <v-icon @click="seeInvoice()" icon="mdi-eye"></v-icon>
-                            </div>
+                            </div> -->
                         </div>
                         <div v-else >
                             <div>Aucune Commande</div>

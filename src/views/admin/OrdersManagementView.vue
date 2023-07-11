@@ -36,8 +36,11 @@
                                     </template>
                                     <v-list>
                                         <div>
-                                            <v-list-item class="custom-bg" v-for="item in items" :key="item.id" @click="selectItem(item, discount.id)">
+                                            <v-list-item class="custom-bg" v-for="item in items" :key="item.id" @click="selectItem(item, order.id)">
                                                 <v-btn :prepend-icon="item.icon" :color="item.color" >{{ item.title }} </v-btn>
+                                            </v-list-item>
+                                            <v-list-item v-if="order.status === 'done' ">
+                                                <v-btn color="green" prepend-icon="mdi-eye" @click="seeDetails(order.id)"> Facture </v-btn>
                                             </v-list-item>
                                             <v-list-item>
                                                 <v-dialog v-model="dialog" width="auto">
@@ -45,10 +48,15 @@
                                                     <v-btn color="primary" v-bind="props" prepend-icon="mdi-eye"> Détails </v-btn>
                                                 </template>
                                                     <v-card>
-                                                        <v-card-text>
-                                                            <div>{{ discount.title }}</div>
-                                                            <div>Taux : {{ discount.rate }} %</div>
-                                                            <div>Articles : {{ discount.articles }}</div>
+                                                        <v-card-text >
+                                                            <div v-for="orderLines in order.orderLines">
+                                                                <div>id : {{ orderLines.pictureId }}</div>
+                                                                <div>quantite : {{ orderLines.quantity }}</div>
+                                                                <div>prix : {{ orderLines.price }}</div>
+                                                                <v-divider></v-divider>
+                                                            </div>
+                                                            
+                                                            
                                                         </v-card-text>
                                                         <v-card-actions>
                                                             <v-btn prepend-icon="mdi-close" color="primary" block @click="dialog = false">Fermer</v-btn>
@@ -66,16 +74,6 @@
                 </v-table>
             </v-col>
         </v-row>
-        <v-row>
-            <v-col cols="12" class="d-flex flex-row justify-content-end">
-                <v-btn :prepend-icon="mdi_check()" @click="create_discount()" class="custom-button">Ajouter</v-btn>
-            </v-col>
-        </v-row>
-        <InfiniteLoading @infinite="load" :distance="3" :firstload="true" >
-            <template #complete>
-                <v-banner id="banner" class="text-center mt-10 text-h5 mx-auto">Fin de la liste!</v-banner>
-            </template>
-        </InfiniteLoading>
     </v-container>
 </template>
 
@@ -114,7 +112,6 @@ onMounted(async( ) => {
 
 // liste des onglets 
 const items = [
-    { id: 1, title : "Modifier", icon :"mdi-pen", color : "blue" }, 
     { id: 2, title : "Supprimer", icon : "mdi-delete", color : "red", }
 ]
 
@@ -125,7 +122,7 @@ const selectItem = (item, id) => {
   console.log(`Selected ${item.title}`);
   if(item.id === 2){
     if(confirm('Attention cette action est définitive! Continuer ?')){
-        discountService.deleteDiscount(id).then( res => {
+        orderService.deleteOrder(id).then( res => {
             alert('Réduction supprimée avec succès');
             router.go(0);
     }).catch( err => alert('Erreur lors de la suppression') )
@@ -148,6 +145,10 @@ const mdi_check = () => {
 
 const create_discount = () => {
     router.push('/admin/discounts/create');
+}
+
+const seeDetails = (orderId) => {
+    router.push('/auth/invoice/' + orderId);
 }
 
 

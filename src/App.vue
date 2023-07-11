@@ -30,7 +30,7 @@
                 </template>
                 <v-list class="draw">
                   <div  class= "draw draw__pop">
-                    <v-list-item v-if="i === 0" v-for="item in items" :key="item.title" @click="selectItem(item)"  link :to="item.to">
+                    <v-list-item v-if="i === 0" v-for="item in adminAlbumItems" :key="item.title" @click="selectItem(item)"  link :to="item.to">
                       <v-list-item-title>{{ item.title }}</v-list-item-title>
                   </v-list-item>
                   <v-list-item v-else-if="i === 1" v-for="(item, j) in cartesCadeaux" :key="j" @click="selectItem(item)">
@@ -60,9 +60,9 @@
             
             <v-menu open-on-hover :close-on-content-click="true" location="end" >
                 <template  v-slot:activator="{ props }">
-                  <v-list-item  class="draw" to="/auth/dashboard"  link>
+                  <!-- <v-list-item  class="draw" to="/auth/dashboard"  link>
                     <v-list-item-title link >Mon Espace perso</v-list-item-title>
-                  </v-list-item>
+                  </v-list-item> -->
                   <v-list-item append-icon="mdi-chevron-right" class="draw" v-bind="props"  link>
                     <v-list-item-title >Gestion</v-list-item-title>
                   </v-list-item>
@@ -113,10 +113,10 @@
                     <v-list-item v-if="i === 0" v-for="item in items" :key="item.title" @click="selectItem(item)"  link :to="item.to">
                       <v-list-item-title>{{ item.title }}</v-list-item-title>
                   </v-list-item>
-                  <v-list-item v-else-if="i === 1" v-for="(item, j) in photoItems" :key="j" @click="selectItem(item)">
+                  <!-- <v-list-item v-else-if="i === 1" v-for="(item, j) in photoItems" :key="j" @click="selectItem(item)">
                       <v-list-item-title>{{ item.title }}</v-list-item-title>
-                  </v-list-item>
-                  <v-list-item v-else-if="i === 2" v-for="(item, k) in cartesCadeaux" :key="k" @click="selectItem(item)">
+                  </v-list-item> -->
+                  <v-list-item v-else-if="i === 1" v-for="(item, k) in cartesCadeaux" :key="k" @click="selectItem(item)">
                       <v-list-item-title>{{ item.title }}</v-list-item-title>
                   </v-list-item>
                   <v-list-item v-else v-for="(item, l) in onlineShop" :key="l" @click="selectItem(item)">
@@ -138,9 +138,11 @@
             </div>
             
             <v-divider style="color: white;"></v-divider>
+            <a href="mailto:npp@gmail.com" style="color: white;">
             <v-list-item append-icon="mdi-chevron-right" class="draw"  link>
                     <v-list-item-title >Contact</v-list-item-title>
             </v-list-item>
+          </a>
                   <v-divider style="color: white;"></v-divider>
             <v-list-item v-if="tokenStore.getStatusApp === 'public'" prepend-icon="mdi-account-plus-outline" append-icon="mdi-chevron-right" class="draw" to="/signup"  link>
                 <v-list-item-title  >Inscription</v-list-item-title>
@@ -280,8 +282,8 @@ onUpdated( async() => {
 const router = useRouter();
 
 const menuTitles = [
-  { title: 'Mes albums' },
-  { title: 'Mes photos'},
+  { title: 'Albums' },
+  // { title: 'Mes photos'},
   { title: 'Cartes Cadeaux' },
   { title: 'Boutique en Ligne' },
 ]
@@ -295,9 +297,9 @@ const userAccountItems = [
 
 const publicMenuTitles = [
 { title: 'Albums Photos' },
-  { title: 'Photos'},
+  // { title: 'Photos'},
   { title: 'Cartes Cadeaux' },
-  { title: 'Boutique en Ligne' },
+  // { title: 'Boutique en Ligne' },
 ]
 
 const photoItems = [
@@ -306,7 +308,7 @@ const photoItems = [
 ]
 
 const cartesCadeaux = [
-{ title: 'Acheter un carte cadeau' },
+{ title: 'Acheter une carte cadeau' },
   { title: 'Mes cartes cadeaux' },
 ]
 
@@ -316,14 +318,20 @@ const onlineShop = [
 
 const items = [
   { title: 'Consulter les albums', to: '/album' },
+];
+
+const adminAlbumItems = [
+  { title: 'Consulter les albums', to: '/album' },
+  { title: 'Liste des albums', to: '/admin/album/list' },
   { title: 'Ajouter un album', to: '/admin/album/create' },
+  { title: 'Gérer les types', to: '/admin/album/types' },
+  { title: 'Gérer les catégories', to: '/admin/album/catégories' },
 ];
 
 const adminItems = [
   { title: 'Utilisateurs', to: '/admin/users'},
-  { title: 'Devis', to: '/admin/devis'},
-  { title: 'Commandes', to: '/admin/orders'},
-  { title: 'Factures', to: '/admin/invoices'},
+  // { title: 'Albums', to: '/admin/albums/gestion'},
+  // { title: 'Categ', to: '/admin/invoices'},
   { title: 'Réductions', to: '/admin/discounts'},
 
 ]

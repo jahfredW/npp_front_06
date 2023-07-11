@@ -5,8 +5,13 @@
 
 <template>
   <!-- {{ album.createdAt }} -->
+  <v-alert class="mb-5"
+          :model-value="alert_error"
+          density="compact"
+          type="error"
+          title="Erreur!"
+          text="Attention il n'existe aucun type de photo renseigné quand à présent, vous allez être redirigés !"></v-alert>
     <v-card class="container mt-10">
-    
     <v-form v-model="valid" @change="$emit('validationUpdated', valid)">
       <v-container>
         <h1 class="h3 text-center mb-5">{{id ? "Editer un album" : "Créer un nouvel album" }} </h1>
@@ -26,13 +31,14 @@
 
         <div v-if="((url.includes('create'))  && (id === null) )">
           <!-- attention cas de blocage : mettre l'écoute à la fin  -->
-          <v-select  variant="outlined" density="compact" prepend-inner-icon="mdi-format-list-bulleted" label="Type de photo" v-model="albumType" :items="types" item-title="name" item-value="id"
-          @update:modelValue="$emit('typeUpdated', albumType)"></v-select>
+          <v-select :rules="typeRules"  variant="outlined" density="compact" prepend-inner-icon="mdi-format-list-bulleted" label="Type de photo" v-model="albumType" :items="types" item-title="name" item-value="id"
+          @update:modelValue="$emit('typeUpdated', albumType)" ></v-select>
+          
         </div>
         <div v-else-if="((url.includes('update'))  && (id !== null) )">
           <!-- attention cas de blocage : mettre l'écoute à la fin  -->
-          <v-select  variant="outlined" density="compact" prepend-inner-icon="mdi-format-list-bulleted" label="type de photo" v-model="albumType" :items="types" item-title="name" item-value="id"
-          @update:modelValue="$emit('typeUpdated', albumType)"></v-select>
+          <v-select :rules="typeRules"  variant="outlined" density="compact" prepend-inner-icon="mdi-format-list-bulleted" label="type de photo" v-model="albumType" :items="types" item-title="name" item-value="id"
+          @update:modelValue="$emit('typeUpdated', albumType)" ></v-select>
         </div>
 
 
@@ -83,18 +89,35 @@ import '@vuepic/vue-datepicker/dist/main.css';
 import { categoryService } from '../../_services/category.service';
 import { productService } from '@/../_services/product.service';
 import { albumService } from '../../_services/album.service';
+import { useVuelidate } from '@vuelidate/core'
 
 let route = useRoute();
 
+// rules 
+const typeRules = [(v) => !!v || "Item is required"];
+
+const alert_error = ref(false);
+
+
+
 // récupération de la liste des catégories au montage du composant 
 onMounted( async() => {
-
+  let productList = await productService.getAllProducts()
   let cat = await categoryService.getAllCategories();
+
+  if(productList.data.length === 0){
+    alert_error.value = true;
+    setTimeout( () => {
+      router.push('/admin/album/types')
+    }, 3000)
+  }
 
   // récupération des types de photos. 
   let products = await productService.getAllProducts();
 
   categories.value = cat.data;
+
+
 
   types.value = products.data;
   console.log(types.value);

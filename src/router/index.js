@@ -9,7 +9,8 @@ import { LoginVue, UserDashboardVue, UserPasswordVue, UserPasswordSuccessVue, Us
     UserEmailUpdateVue, UserBannishedPageView } from '@/views/auth/index';
 import { AdminDashboard, UploadPictures, AlbumFormVue, 
     ReadAlbumsVue, AlbumCardVue, AlbumListeVue, PictureVue, AlbumUpdateVue, 
-UsersManagementView, UserDetailView, DiscountsManagementView, DiscountsUpdateFormView, DiscountCreateFormView, OrdersManagementView } from '@/views/admin';
+UsersManagementView, UserDetailView, DiscountsManagementView, DiscountsUpdateFormView, DiscountCreateFormView, 
+OrdersManagementView, TypesAlbumManagementView, ProductCreateFormView, ProductsUpdateFormView } from '@/views/admin';
 
 import { AlbumCard, AlbumListe }  from '@/components';
 
@@ -17,6 +18,7 @@ import { createWebHistory, createRouter } from 'vue-router';
 import { decodeTokenValidity } from '@/../_helpers/auth_guard'
 import { decodeAdmin } from '@/../_helpers/auth_guard'
 import OrdersManagementViewVue from '../views/admin/OrdersManagementView.vue';
+
 
 
 const routes = [
@@ -86,6 +88,11 @@ const routes = [
             { path: 'album/create/:id(\\d+)?', name: 'create-album', component: AlbumFormVue },
             { path: 'album/read/:id(\\d+)', name: 'read-admin-album', component: AlbumListeVue },
             { path: 'album/update/:id(\\d+)', name: 'update-album', component: AlbumUpdateVue },
+            { path: 'album/types', name: 'types-album', component: TypesAlbumManagementView },
+            { path: 'album/type', name: 'test1', children : [
+                { path: 'create', name: 'create-type', component: ProductCreateFormView },
+                { path: 'update/:id(\\d+)', name: 'update-type', component: ProductsUpdateFormView }
+            ]},
             
 
         

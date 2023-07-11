@@ -5,13 +5,13 @@
           density="compact"
           type="success"
           title="Updated!"
-          text="réduction mise à jour"></v-alert>
+          text="type mis à jour"></v-alert>
           <v-alert class="mb-5"
           :model-value="alert_created"
           density="compact"
           type="success"
           title="Créé!"
-          text="réduction créée!"></v-alert>
+          text="type créé!"></v-alert>
           <v-alert class="mb-5"
           :model-value="alert_error"
           density="compact"
@@ -19,9 +19,10 @@
           title="Erreur!"
           text="Attention il semblerait qu'une réduction existe déja pour ce nombre d'articles!"></v-alert>
         <v-form>
-            <v-text-field  v-model="state.intitule" label="intitulé"></v-text-field>
-            <v-text-field placeholder="entrez un nombre" type="number" v-model="state.rate" label="pourcentage"></v-text-field>
-            <v-text-field placeholder="entrez un nombre" type="number" v-model="state.articles" label="articles"></v-text-field> 
+            
+            <v-text-field placeholder="entrez un nombre" type="text" v-model="state.name" label="intitulé"></v-text-field>
+            <v-text-field placeholder="entrez un nombre" type="float" v-model="state.price" label="prix"></v-text-field> 
+            <v-text-field  v-model="state.description" label="description"></v-text-field>
             <v-btn  class="custom-button" @click="update_discount(state.id)">{{ btnValue() }}</v-btn>
         </v-form>
        
@@ -31,7 +32,7 @@
 <script setup>
 
 import { reactive, ref, onMounted, onBeforeUpdate } from 'vue';
-import { discountService } from '@/../_services/discount.service';
+import { productService } from '@/../_services/product.service';
 import { useRouter } from 'vue-router';
 
 
@@ -46,9 +47,9 @@ const router = useRouter();
 onBeforeUpdate(() => {
     if(props.test){
         state.id = props.test.id;
-        state.intitule = props.test.title;
-        state.rate = props.test.rate;
-        state.articles = props.test.articles;
+        state.name = props.test.name;
+        state.price = props.test.price;
+        state.description = props.test.description;
     }
     
 })
@@ -56,9 +57,9 @@ onBeforeUpdate(() => {
 // init de l'état des inptus du formulaire
 const initialState = {
     id : null,
-    intitule : "",
-    rate : "",
-    articles: "",
+    name : "",
+    price : null,
+    description: "",
 }
 
 const state = reactive({
@@ -74,12 +75,12 @@ const props = defineProps({
 // fonction de mise à jour de la réduction 
 const update_discount = (id) => {
     let formdata = {};
-    formdata['title'] = state.intitule;
-    formdata['rate'] = parseFloat(state.rate);
-    formdata['articles'] = parseInt(state.articles);
+    formdata['name'] = state.name;
+    formdata['price'] = parseFloat(state.price);
+    formdata['description'] = state.description;
 
     if(id){
-        discountService.discount_update(id, formdata)
+        productService.update_product_by_id(id, formdata)
             .then( (res) => {
                 alert_updated.value = true;
               
@@ -87,7 +88,7 @@ const update_discount = (id) => {
             })
             .catch( err => console.log(err));
     } else {
-        discountService.discount_create(formdata)
+        productService.create_product(formdata)
         .then( res => {
             alert_created.value = true;
             
@@ -101,7 +102,7 @@ const update_discount = (id) => {
     }
 
     setTimeout( () => {
-        router.push('/admin/discounts');
+        router.push('/admin/album/types');
     }, 3000)
     
     

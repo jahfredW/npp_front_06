@@ -7,7 +7,7 @@
         <div ref="document">
             <div id="element-to-convert" >
                 <div class="d-flex flex-row justify-content-center my-5">
-                    <img width="120" height="120" src="/public/images/logo.png" alt="nppLogo"/>
+                    <img width="120" height="120" src="@/assets/images/logo.png" alt="nppLogo"/>
                 </div> 
             <v-container class="container text-center">
                 <div>Facture numéro : <strong>{{ invoice.factureID }}</strong></div>
